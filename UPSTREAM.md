@@ -16,7 +16,7 @@ split so that each part sits in the build folder of the machine that uses it:
 | --- | --- |
 | `app/` | `build/app/app/` |
 | `api/` | `build/api/app/` |
-| `everything else (README, Makefile, deployments, images)` | `app/` |
+| everything else (README, Makefile, deployments, images) | `app/` |
 
 Each `build/<machine>/Dockerfile` says in its header comment how it differs from upstream:
 
