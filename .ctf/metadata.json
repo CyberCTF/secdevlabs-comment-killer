@@ -1,0 +1,13 @@
+{
+  "title": "secDevLabs Comment-killer",
+  "description": "A React page about a fictional post where visitors leave comments, stored by a small Go API and shown to every visitor. Comments are stored and rendered without sanitization.",
+  "question": "Store a comment that runs your own JavaScript in the browser of everyone who opens the page.",
+  "category": "WEB",
+  "difficulty": 1,
+  "evidence_kind": "SECRET",
+  "capabilities": [
+    "stored-xss",
+    "injection",
+    "react"
+  ]
+}

@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# Comment-killer (secDevLabs, by Globo.com) as an Isoloom spec: a React page whose comments,
+# stored by a Go API, are a stored cross-site scripting flaw. Vendored unchanged from the app
+# folder owasp-top10-2021-apps/a3/comment-killer of secDevLabs (build/app/app/, build/api/app/,
+# and the rest in app/), built by overlays of upstream's Dockerfiles.
+# The page calls the API at http://localhost:10017, so both keep upstream's published ports.
+# `isoloom generate`, then `isoloom up docker`.
+version: 1
+name: secdevlabs-comment-killer
+
+networks:
+  lab: { cidr: 10.60.94.0/24, internet: false }
+
+machines:
+  api:
+    networks: { lab: 20 }
+    services: [{ port: 10017, name: api, http: true, publish: 10017 }]
+    resources: { cpus: 1, memory_mb: 256 }
+    docker:
+      build: build/api
+
+  app:
+    networks: { lab: 10 }
+    services: [{ port: 3000, name: web, http: true, publish: 10007 }]
+    resources: { cpus: 1, memory_mb: 1024 }
+    depends_on: [api]
+    docker:
+      build: build/app
+
+checks:
+  - name: the page answers
+    http: http://app:3000/
+    wait: 240
+  - name: the API answers
+    http: http://api:10017/healthcheck
+  - name: a comment with HTML markup is stored as sent
+    script: checks/comments.sh
+
+message: |
+  Comment-killer answers at http://localhost:{{ machines.app.services.0.publish }}/ and its API at
+  http://localhost:{{ machines.api.services.0.publish }}/comments. Leave a comment, then see
+  what the page does with the comments it loads.
