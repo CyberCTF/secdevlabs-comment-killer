@@ -4,7 +4,7 @@
 # folder owasp-top10-2021-apps/a3/comment-killer of secDevLabs (build/app/app/, build/api/app/,
 # and the rest in app/), built by overlays of upstream's Dockerfiles.
 # The page calls the API at http://localhost:10017, so both keep upstream's published ports.
-# `isoloom generate`, then `isoloom up docker`.
+# `isoloom generate`, then `isoloom run docker`.
 version: 1
 name: secdevlabs-comment-killer
 
