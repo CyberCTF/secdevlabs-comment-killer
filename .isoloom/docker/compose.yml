@@ -9,6 +9,9 @@ services:
   api:
     build:
       context: ../../build/api
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: secdevlabs-comment-killer
     image: isoloom/secdevlabs-comment-killer-api
     platform: linux/amd64
     hostname: api
@@ -40,6 +43,8 @@ services:
           memory: 256M
     labels:
       isoloom.service.api: http:10017
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
     restart: unless-stopped
   api-routes:
     image: alpine:3.20
@@ -61,9 +66,15 @@ services:
       api:
         condition: service_started
     restart: unless-stopped
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
   app:
     build:
       context: ../../build/app
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: secdevlabs-comment-killer
     image: isoloom/secdevlabs-comment-killer-app
     platform: linux/amd64
     hostname: app
@@ -99,6 +110,8 @@ services:
           memory: 1024M
     labels:
       isoloom.service.web: http:3000
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
     restart: unless-stopped
   app-routes:
     image: alpine:3.20
@@ -120,6 +133,9 @@ services:
       app:
         condition: service_started
     restart: unless-stopped
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
   isoloom-check:
     image: curlimages/curl:8.11.1
     profiles:
@@ -145,6 +161,9 @@ services:
         condition: service_healthy
       app-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
   isoloom-check-api:
     image: curlimages/curl:8.11.1
     profiles:
@@ -164,6 +183,9 @@ services:
         condition: service_healthy
       app-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
   isoloom-check-app:
     image: curlimages/curl:8.11.1
     profiles:
@@ -183,6 +205,9 @@ services:
         condition: service_healthy
       app-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
   isoloom-probe-amd64:
     image: busybox:1.37.0-musl
     platform: linux/amd64
@@ -194,11 +219,20 @@ services:
     - isoloom-probe-amd64:/probe
     network_mode: none
     restart: no
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
 networks:
   lab:
     ipam:
       config:
       - subnet: 10.60.94.0/24
         gateway: 10.60.94.1
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer
 volumes:
-  isoloom-probe-amd64: {}
+  isoloom-probe-amd64:
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: secdevlabs-comment-killer

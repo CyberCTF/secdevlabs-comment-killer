@@ -138,7 +138,8 @@
       "vagrant": "needs `vm:` on api, app",
       "proxmox": "needs `vm:` on api, app",
       "cloud-vm": "needs `vm:` on api, app",
-      "external": "needs `external:` on api, app"
+      "external": "needs `external:` on api, app",
+      "cloud-services": "left out by `targets:`"
     }
   },
   "checks": {
