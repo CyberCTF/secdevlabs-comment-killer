@@ -4,10 +4,5 @@
   "question": "Store a comment that runs your own JavaScript in the browser of everyone who opens the page.",
   "category": "WEB",
   "difficulty": 1,
-  "evidence_kind": "SECRET",
-  "capabilities": [
-    "stored-xss",
-    "injection",
-    "react"
-  ]
+  "evidence_kind": "SECRET"
 }
