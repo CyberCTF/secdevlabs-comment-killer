@@ -1,0 +1,45 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Store a comment that runs script and retrieve the flag (/ctf/flag).",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-secdevlabs-comment-killer}",
+      "hints": [
+        "Comments are stored by the API and shown to every visitor.",
+        "Read about stored cross-site scripting and output sanitization."
+      ],
+      "steps": [
+        {
+          "key": "framework",
+          "title": "Identify the front end",
+          "prompt": "Which JavaScript library renders the page?",
+          "check": {
+            "answer": [
+              "react",
+              "reactjs",
+              "react.js"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Name the weakness",
+          "prompt": "Which XSS type is this?",
+          "check": {
+            "answer": [
+              "stored xss",
+              "stored",
+              "persistent xss",
+              "stored cross-site scripting"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
